@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between" mat-dialog-title>
+  <h2>{{ pageTitle }}</h2>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+<mat-dialog-content [formGroup]="form">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Title" [formControl]="name">
+          <mat-error *ngIf="name.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Url" [formControl]="url">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <textarea matInput [formControl]="description" placeholder="Description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-button-toggle-group [formControl]="color" name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="red">red</mat-button-toggle>
+          <mat-button-toggle value="green">green</mat-button-toggle>
+          <mat-button-toggle value="black">black</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-end">
+  <button mat-raised-button (click)="close()">Close</button>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

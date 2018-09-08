@@ -1,0 +1,16 @@
+<div #container class="day-view-header">
+  <div class="cal-day-view-header">
+    <span class="date-ee">{{ viewDate | date:'EE' }}</span> <br/>
+    <span class="date-d">{{ viewDate | date:'d' }}</span>
+  </div>
+  <div #eventsContainer *ngFor="let event of view.allDayEvents">
+    <div *ngIf="event.calendar.display" class="cal-all-day-event" [style.backgroundColor]="event.color ? event.color : event.calendar.color"
+      (click)="eventClicked.emit(event)">
+      <a class="cal-event-action" href="javascript:;" *ngFor="let action of event.actions" (click)="eventClicked.emit(event)" [ngClass]="action.cssClass"
+        [innerHtml]="action.label">
+      </a>
+      <a class="cal-event-title" href="javascript:;" [innerHTML]="event.title">
+      </a>
+    </div>
+  </div>
+</div>

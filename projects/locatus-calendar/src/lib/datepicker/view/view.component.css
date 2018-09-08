@@ -1,0 +1,99 @@
+.datepicker-header {
+    max-width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.btn-locatus {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.switch-view-icon {
+    padding-top: 2px;
+    padding-left: 3px;
+    font-size: 1.5rem;
+}
+
+.btn-locatus:hover {
+    background-color: #e0e0e0;
+}
+
+.day-col {
+    height: 35px;
+}
+
+.month-name {
+    color: #757575;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.week-day {
+    font-size: 12px;
+    font-weight: 400;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #757575 !important;
+}
+
+.day {
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.datepicker-year-view {
+    max-width: 315px;
+}
+
+.year-col {
+    width: 45px;
+    height: 45px;
+}
+
+.year {
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 25px;
+}
+
+.year:hover {
+    background-color: #e0e0e0;
+}
+
+.same-day {
+    background-color: #e0e0e0;
+}
+
+.day.to-day,
+.year.current-year {
+    background-color: #40dc7e !important;
+    color: white;
+}
+
+.day.not-in-month {
+    color: #757575 !important;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+}

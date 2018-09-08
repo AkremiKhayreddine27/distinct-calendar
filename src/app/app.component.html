@@ -1,20 +1,117 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container-fluid h-100 p-0 pb-4">
+    <div class="row calendar-header m-0 d-flex align-content-center">
+        <div class="col-md-3 page-title d-none d-md-flex align-items-center">
+            <img class="logo" src="assets/calendar_48dp.png" />
+            <span class="ml-1">Calendar</span>
+        </div>
+        <div class="col-md-2 col-5 d-none d-md-flex align-items-center">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <span (click)="setViewDate('previous')" class="btn d-flex justify-content-center align-items-center btn-sm btn-locatus">
+                    <mat-icon>navigate_before</mat-icon>
+                </span>
+                <span (click)="setViewDate('today')" class="btn btn-sm btn-locatus">Today</span>
+                <span (click)="setViewDate('next')" class="btn d-flex justify-content-center align-items-center btn-sm btn-locatus">
+                    <mat-icon>navigate_next</mat-icon>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-3 d-none d-md-flex current-date align-items-center">
+            {{ currentDate | date: 'MMMM yyyy' }}
+        </div>
+        <div class="col-5 d-md-none d-flex align-items-center">
+            <span class="current-date" (click)="isCollapsed = !isCollapsed">
+                {{ currentDate | date: 'MMMM yyyy' }}
+            </span>
+            <mat-icon class="switch-view-icon">arrow_drop_down</mat-icon>
+        </div>
+        <div class="col-md-2 col-3 d-flex align-items-center justify-content-end">
+            <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                <span class="btn btn-sm btn-locatus" ngbDropdownToggle>{{ view }}</span>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <span (click)="setView('Day')" class="dropdown-item">Day</span>
+                    <span (click)="setView('Week')" class="dropdown-item">Week</span>
+                    <span (click)="setView('Month')" class="dropdown-item">Month</span>
+                    <span (click)="setView('Year')" class="dropdown-item">Year</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-4 d-flex align-items-center justify-content-end">
+            <app-header-right-menu class="w-100"></app-header-right-menu>
+        </div>
+    </div>
+    <div class="row calendar-container m-0 no-gutters">
+        <div class="col-12 d-md-none d-flex p-0 pt-2">
+            <div class="w-100" [ngbCollapse]="isCollapsed">
+                <locatus-datepicker [date]="currentDate" (navigation)="setDate($event.date)" (dateChanged)="setDate($event)">
+                </locatus-datepicker>
+            </div>
+        </div>
+        <div class="d-none d-md-block col-md-3">
+            <div class="row border-top border-bottom m-0">
+                <div class="col-12 p-0">
+                    <locatus-datepicker [date]="currentDate" (navigation)="setDate($event.date)" (dateChanged)="setDate($event)">
+                    </locatus-datepicker>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="col-12 p-0">
+                    <span class="my-calendars p-2 align-items-center d-flex justify-content-between">
+                        <span>My Calendars</span>
+                        <div ngbDropdown placement="bottom-right" class="align-items-center d-flex">
+                            <mat-icon class="custom-toggle" ngbDropdownToggle>add</mat-icon>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <span (click)="addCalendar()" class="dropdown-item">Add</span>
+                                <span (click)="importCalendar()" class="dropdown-item">Import from file</span>
+                                <span (click)="importCalendarUrl()" class="dropdown-item">Import from url</span>
+                                <span locatusCalendarExport [events]="events" [calendars]="calendars" class="dropdown-item">Export</span>
+                            </div>
+                        </div>
+                    </span>
+                    <div>
+                        <div class="d-flex flex-column">
+                            <div *ngFor="let calendar of calendars" class="d-flex p-1 align-items-center justify-content-between">
+                                <label [class.loading]="!calendar.loaded" class="check-container d-flex align-items-center">
+                                    {{ calendar.name }}
+                                    <mat-spinner class="ml-2" *ngIf="calendar.loading" [diameter]="15"></mat-spinner>
+                                    <input type="checkbox" [(ngModel)]="calendar.display" (change)="setCalendarDisplay($event)" />
+                                    <span [style.backgroundColor]="calendar.color" class="checkmark"></span>
+                                </label>
+                                <div ngbDropdown placement="bottom-right" class="align-items-center d-flex">
+                                    <mat-icon class="cursor-pointer custom-toggle" ngbDropdownToggle>more_vert</mat-icon>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                        <span locatusCalendarExport [events]="events" [calendars]="[calendar]" class="dropdown-item">Export</span>
+                                        <span *ngIf="!calendar.isLocal" (click)="refreshCalendar(calendar)" class="dropdown-item">Refresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 h-100 border-left">
+            <div class="h-100" [ngSwitch]="view">
+                <locatus-calendar-month-view class="h-100" (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refresh" *ngSwitchCase="'Month'"
+                    (eventClicked)="eventClicked($event)" (monthDayNumberClicked)="navigate('Day', $event.date)" (newEventCreated)="newEventCreated($event)"
+                    (cellClicked)="isMobileView ? navigate('Day', $event.date) : cellClicked($event)" [events]="events" [viewDate]="currentDate">
+                </locatus-calendar-month-view>
 
+                <locatus-calendar-week-view class="h-100" (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refresh" *ngSwitchCase="'Week'"
+                    (eventClicked)="eventClicked($event)" (weekDayHourClicked)="weekDayHourClicked($event)" (newEventCreated)="newEventCreated($event)"
+                    [events]="events" [viewDate]="currentDate">
+                </locatus-calendar-week-view>
+
+                <locatus-calendar-day-view class="h-100" (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refresh" *ngSwitchCase="'Day'"
+                    (eventClicked)="eventClicked($event)" (cellClicked)="cellClicked($event)" [events]="events" [viewDate]="currentDate">
+                </locatus-calendar-day-view>
+
+                <locatus-calendar-year-view class="h-100" *ngSwitchCase="'Year'" [refresh]="refresh" (yearMonthClicked)="navigate('Month', $event)"
+                    (yearDayClicked)="navigate('Day', $event.date)" [events]="events" [viewDate]="currentDate">
+                </locatus-calendar-year-view>
+            </div>
+        </div>
+    </div>
+    <span (click)="addEvent()" class="btn-new-event d-flex justify-content-center align-items-center">
+        <i class="fa fa-plus"></i>
+    </span>
+</div>

@@ -1,0 +1,36 @@
+.year-view {
+    border: 1px solid #EBEEF2;
+    border-left: none !important;
+}
+
+.main-container {
+    overflow-y: auto;
+    height: 92vh !important;
+}
+
+.month-name {
+    color: #757575;
+    font-weight: 400;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.day {
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.day.not-in-month {
+    color: #757575 !important;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+}

@@ -1,0 +1,18 @@
+<div class="year-view main-container row m-0">
+  <div *ngFor="let month of view.months" class="month col-md-4 pb-5">
+    <span (click)="monthClicked(month)" class="month-name">{{ month.name }}</span>
+    <div *ngIf="month.weeks.length > 0" class="row m-0">
+      <div *ngFor="let day of month.weeks[0].days" class="col d-flex flex-column p-1">
+        <div class="day not-in-month align-self-center">{{ day.date | date:'E' }}</div>
+      </div>
+    </div>
+    <div *ngFor="let week of month.weeks" class="row m-0">
+      <div *ngFor="let day of week.days" (click)="dayClicked(day)" class="col d-flex flex-column p-1">
+        <div [class.not-in-month]="!day.inMonth" class="day align-self-center">{{ day.date | date : 'dd' }}</div>
+        <div *ngFor="let event of day.events">
+          <div *ngIf="event.calendar.display" [style.height.px]="2" [style.backgroundColor]="event.calendar.color"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

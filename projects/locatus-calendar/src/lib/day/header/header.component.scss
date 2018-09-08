@@ -1,0 +1,27 @@
+.cal-day-view-header {
+    height: 60px;
+    padding-left: 85px;
+    border: solid 1px #EBEEF2;
+    border-left: 0 !important;
+    border-bottom: none !important;
+}
+
+.date-ee {
+    font-size: 14px;
+}
+
+.date-d {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.cal-all-day-event {
+    margin-bottom: 2px;
+    font-size: 13px;
+    padding: 5px;
+    cursor: pointer;
+    a {
+        color: white !important;
+        font-size: 12px;
+    }
+}

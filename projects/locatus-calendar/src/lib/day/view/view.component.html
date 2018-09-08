@@ -1,0 +1,31 @@
+<div class="cal-day-view" #dayViewContainer>
+  <locatus-day-header (eventClicked)="eventClicked.emit($event)" (heightChanged)="setContainerHeight($event)" [view]="view"
+    [viewDate]="viewDate"></locatus-day-header>
+  <div #container [style.top.px]="height" class="main-container">
+    <div class="cal-hour-rows">
+      <div class="cal-events">
+        <div *ngFor="let dayEvent of view?.events" class="cal-event-container" [class.cal-draggable]="dayEvent.event.draggable" [class.cal-starts-within-day]="!dayEvent.startsBeforeDay"
+          [class.cal-ends-within-day]="!dayEvent.endsAfterDay" [ngClass]="dayEvent.event.cssClass" [style.marginTop.px]="dayEvent.top"
+          [style.height.px]="dayEvent.height" [style.marginLeft.px]="dayEvent.left + 70" [style.width.px]="dayEvent.width - 1">
+          <div *ngIf="dayEvent.event.calendar.display" [ngDraggable]="dayEvent.event.draggable" (endOffset)="dragEnd($event, dayEvent.event)"
+            [ngResizable]="dayEvent.event.draggable" [rzHandles]="'n,s'" (rzStop)="onResizeStop($event, dayEvent)" class="cal-event"
+            (click)="eventClicked.emit(dayEvent.event)" [style.backgroundColor]="dayEvent.event.color ? dayEvent.event.color : dayEvent.event.calendar.color">
+            <a class="cal-event-action" href="javascript:;" *ngFor="let action of dayEvent.event.actions" [ngClass]="action.cssClass"
+              [innerHtml]="action.label">
+            </a>
+            <a class="cal-event-title" href="javascript:;" [innerHTML]="dayEvent.event.title">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="cal-hour" *ngFor="let hour of hours" [style.minWidth.px]="view?.width + 70">
+        <div *ngFor="let segment of hour.segments" class="cal-hour-segment" [style.height.px]="hourSegmentHeight" [class.cal-hour-start]="segment.isStart"
+          [class.cal-after-hour-start]="!segment.isStart" [ngClass]="segment.cssClass">
+          <div class="cal-time">
+            {{ segment.date | date: 'h:mm a' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

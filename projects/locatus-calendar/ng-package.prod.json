@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/locatus-calendar",
+  "whitelistedNonPeerDependencies": [
+    "date-fns",
+    "file-saver",
+    "ical.js",
+    "immutable-ics",
+    "jszip",
+    "angular2-draggable",
+    "@types/jszip"
+  ],
+  "lib": {
+    "entryFile": "src/public_api.ts"
+  }
+}

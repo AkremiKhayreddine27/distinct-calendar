@@ -1,0 +1,30 @@
+<div class="month-view">
+    <month-header [days]="columnHeaders"></month-header>
+
+    <div #container class="cal-days main-container" (mouseup)="changeIsCreatedEvent(true)">
+        <div class="cal-row" *ngFor="let rowIndex of view.rowOffsets; let index = index">
+            <div *ngIf="rowIndex" #cell class="cal-cell-row">
+                <div class="cal-day-cell" *ngFor="let day of rowIndex.days">
+                    <locatus-calendar-month-cell class="calendar-month-cell" [class.cal-drag-over]="day.dragOver" [ngClass]="{'isToday': day.isToday }"
+                        [day]="day" (dayNumberClicked)="monthDayNumberClicked.emit($event)" (cellClicked)="monthCellClicked($event)"
+                        [openDay]="openDay" locatusMonthCellDrag (eventCreated)="changeIsCreatedEvent($event)" [created]="isCreatedEvent"
+                        [event]="createdEvent" (eventTimeChanged)="cellEventTimeChanged($event.event)">
+                    </locatus-calendar-month-cell>
+                </div>
+                <div *ngFor="let event of rowIndex.events">
+                    <div *ngIf="event.event.calendar.display && !event.hidden" [ngResizable]="event.event.draggable" [rzHandles]="'e,w'" (rzStop)="onResizeStop($event, event)"
+                        [ngDraggable]="event.event.draggable" (endOffset)="dragEnd($event, event.event)" (click)="monthEventClicked(event.event)"
+                        [class.month-event]="event.event.allDay" [class.month-non-all-day-event]="!event.event.allDay" [style.height]="20 + '%'"
+                        [style.top]="event.top + '%'" [style.backgroundColor]="event.event.color ? event.event.color : event.event.calendar.color"
+                        [style.left]="event.left + '%'" [style.width]="event.event.allDay ? event.width + '%' : 100/7 +'%'">
+                        <div *ngIf="!event.event.allDay" class="month-non-all-day-event-color" [style.backgroundColor]="event.event.color ? event.event.color : event.event.calendar.color">
+                        </div>
+                        <div class="month-event-title">
+                            {{ event.event.start | date : 'hh:mm a'}} {{ event.event.title }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

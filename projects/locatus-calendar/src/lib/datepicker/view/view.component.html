@@ -1,0 +1,44 @@
+<div class="datepicker-header pr-0 pb-0 pl-2 d-flex align-items-center justify-content-between">
+  <span *ngIf="displayNavigation" (click)="switchView()" class="month-name d-flex align-items-center cursor-pointer">
+    {{ view.month }} {{ view.year }}
+    <i class="nb-chevron-down switch-view-icon"></i>
+  </span>
+  <span *ngIf="!displayNavigation" class="month-name">
+    {{ view.month }} {{ view.year }}
+  </span>
+  <div *ngIf="displayNavigation" class="d-flex">
+    <div (click)="navigate('previous')" class="d-flex justify-content-center align-items-center btn-locatus">
+      <i class="nb-arrow-left"></i>
+    </div>
+    <div (click)="navigate('next')" class="d-flex justify-content-center align-items-center btn-locatus">
+      <i class="nb-arrow-right"></i>
+    </div>
+  </div>
+</div>
+<div *ngIf="isMonthView" class="datepicker-body">
+  <div *ngIf="view.weeks.length > 0" class="row m-0 d-flex">
+    <div *ngFor="let day of view.weeks[0].days" class="day-col col d-flex flex-column p-1">
+      <div class="week-day align-self-center">{{ day.date | date:'E' }}</div>
+    </div>
+  </div>
+  <div *ngFor="let week of view.weeks" class="row m-0 d-flex">
+    <div *ngFor="let day of week.days" (click)="dayClicked(day.date)" class="day-col col d-flex flex-column p-1">
+      <div [class.same-day]="day.date === date" [class.to-day]="day.isToday" [class.not-in-month]="!day.inMonth" class="day align-self-center">
+        {{ day.date | date: 'dd' }}</div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isYearView" class="datepicker-year-view">
+  <div class="d-flex flex-wrap">
+    <div *ngFor="let year of years" (click)="yearClicked(year.date)" class="year-col d-flex flex-column p-1">
+      <div [class.current-year]="year.isCurrent" class="year align-self-center">{{ year.date | date: 'yyyy' }}</div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isMonthsView" class="datepicker-year-view">
+  <div class="d-flex flex-wrap">
+    <div *ngFor="let month of months" (click)="monthClicked(month.date)" class="year-col d-flex flex-column p-1">
+      <div [class.current-year]="month.isCurrent" class="year align-self-center">{{ month.date | date: 'MMM' }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+.cal-day-view {
+    background-color: white;
+    height: 100%;
+    position: relative;
+}
+
+.main-container {
+    overflow-y: auto;
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    left: 0;
+}
+
+.cal-day-view .cal-hour-rows {
+    width: 100%;
+    border: solid 1px #EBEEF2;
+    border-left: 0 !important;
+    position: relative;
+}
+
+.cal-day-view .cal-hour {
+    background-color: white;
+}
+
+.cal-event-container {
+    position: absolute;
+}
+
+calendar-day-view-event {
+    cursor: pointer;
+}
+
+.cal-hour-segment {
+    display: flex;
+    border-bottom: 1px solid #EBEEF2;
+    border-right: 1px solid #EBEEF2; //border-left: 1px solid #EBEEF2;
+}
+
+.cal-hour-segment.cal-after-hour-start .cal-time {
+    color: transparent;
+    border-bottom: 1px solid #EBEEF2;
+}
+
+.cal-hour-segment .cal-time {
+    height: 30px;
+    font-size: 12px;
+    padding-left: 15px;
+    border-right: 1px solid #EBEEF2;
+    color: #555555;
+}
+
+.cal-hour-segment .cal-hour-segment-header:not(:last-child) {
+    border-right: 1px solid #EBEEF2;
+}
+
+.cal-hour-segment .cal-time {
+    position: absolute;
+    width: 70px;
+    left: 0;
+}
+
+.cal-hour-segment .cal-hour-segment-header {
+    flex: 1;
+}
+
+.cal-hour-segment:hover {
+    background-color: transparent;
+}
+
+.cal-hour-segment.cal-hour-start {
+    border-bottom: none;
+}
+
+.cal-event {
+    height: 100%;
+    font-size: 12px;
+    padding-left: 5px;
+    color: white !important;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cal-event a {
+    color: white !important;
+    font-size: 12px;
+}
